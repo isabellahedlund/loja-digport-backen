@@ -1,12 +1,18 @@
 package main
 
-import "github.com/isabellahedlund/loja-digport-backend/model"
+import (
+	"errors"
+
+	"github.com/isabellahedlund/loja-digport-backend/model"
+)
+
+var Produtos []model.Produto = []model.Produto{}
 
 func criaEstoque() []model.Produto {
 	produto := []model.Produto{
 		{
-			Nome:       "Disco de Vinil",
-			Descricao:  "Disco de Vinil: The Beatles",
+			Nome:       "Abbey",
+			Descricao:  "Disco de Vinil: The Beatles, Abbey Road",
 			MusicGenre: "POP",
 			Artist:     "The Beatles",
 			Album:      "Abbey Road",
@@ -16,7 +22,7 @@ func criaEstoque() []model.Produto {
 			Imagem:     "AbbeyRoad.png",
 		},
 		{
-			Nome:       "Disco de Vinil",
+			Nome:       "Help",
 			Descricao:  "Disco de Vinil: The Beatles",
 			MusicGenre: "POP",
 			Artist:     "The Beatles",
@@ -27,7 +33,7 @@ func criaEstoque() []model.Produto {
 			Imagem:     "Help.png",
 		},
 		{
-			Nome:       "Disco de Vinil",
+			Nome:       "The Beatles",
 			Descricao:  "Disco de Vinil: The Beatles",
 			MusicGenre: "POP",
 			Artist:     "The Beatles",
@@ -43,17 +49,26 @@ func criaEstoque() []model.Produto {
 
 //func buscaProdutosPorNome(nome string) []model.Produto
 
-//criar função no catalogo que busque o produto pelo nome, chamar na main.
+// criar função no catalogo que busque o produto pelo nome, chamar na main.
 func buscaProdutosPorNome(nome string) []model.Produto {
-	var produtosEncontrados []model.Produto
 
-	estoque := criaEstoque()
+	estoque := []model.Produto{}
 
-	for _, produto := range estoque {
+	for _, produto := range criaEstoque() {
 		if produto.Nome == nome {
-			produtosEncontrados = append(produtosEncontrados, produto)
+			estoque = append(estoque, produto)
 		}
 	}
 
-	return produtosEncontrados
+	return estoque
+}
+
+func adicionaProduto(produtoNovo model.Produto) error {
+	for _, produto := range Produtos {
+		if produtoNovo.ID == produto.ID {
+			return errors.New("produto com ID já existente")
+		}
+	}
+	Produtos = append(Produtos, produtoNovo)
+	return nil
 }

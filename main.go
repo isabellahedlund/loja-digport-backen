@@ -1,13 +1,16 @@
 package main
 
-import "fmt"
+//import "fmt"
 
 func main() {
-	//	StartServer()
-	nome := ""
-	fmt.Scan("Digite o nome do produto desejado: ", &nome)
+	criaEstoque()
+	StartServer()
 
-	produtosFiltrados := buscaProdutosPorNome(nome)
+	//nome := ""
+	//fmt.Printf("Digite o nome do produto desejado: ")
+	//fmt.Scanf("%s", &nome)
 
-	fmt.Println(produtosFiltrados)
+	//estoque := buscaProdutosPorNome(nome)
+
+	//fmt.Println(estoque)
 }
